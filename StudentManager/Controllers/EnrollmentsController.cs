@@ -54,6 +54,7 @@ namespace StudentManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "EnrollmentID,GroupID,StudentID,LessonID,CourseID")] Enrollment enrollment)
         {
+            ModelState.Remove("LessonID");
             if (ModelState.IsValid)
             {
                 db.Enrollments.Add(enrollment);

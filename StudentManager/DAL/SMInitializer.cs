@@ -7,7 +7,7 @@ using StudentManager.Models;
 
 namespace StudentManager.DAL
 {
-    public class SMInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<SMContext>
+    public class SMInitializer : System.Data.Entity.DropCreateDatabaseAlways<SMContext>
     {
         protected override void Seed(SMContext context)
         {
@@ -71,8 +71,8 @@ namespace StudentManager.DAL
 
             var courses = new List<Course>
             {
-            new Course{CourseID=1050,Title="Chemistry",Level="A",},
-            new Course{CourseID=2050,Title="Physico Meditation",Level="A",}
+            new Course{Title="Chemistry",Level="A",},
+            new Course{Title="Physico Meditation",Level="A",}
             };
             courses.ForEach(s => context.Courses.Add(s));
             context.SaveChanges();
@@ -85,18 +85,20 @@ namespace StudentManager.DAL
             groups.ForEach(g => context.Groups.Add(g));
             context.SaveChanges();
 
-            var enrollments = new List<Enrollment>
+            /*var enrollments = new List<Enrollment>
             {
-                new Enrollment{GroupID=1, StudentID=1, LessonID=1, CourseID=1050},
-                new Enrollment{GroupID=1, StudentID=2, LessonID=1, CourseID=1050},
-                new Enrollment{GroupID=1, StudentID=3, LessonID=1, CourseID=1050},
-                new Enrollment{GroupID=1, StudentID=4, LessonID=1, CourseID=1050},
+                new Enrollment{GroupID=1, StudentID=1, LessonID=1, CourseID=1},
+                new Enrollment{GroupID=1, StudentID=2, LessonID=1, CourseID=1},
+                new Enrollment{GroupID=1, StudentID=3, LessonID=1, CourseID=1},
+                new Enrollment{GroupID=1, StudentID=4, LessonID=1, CourseID=1},
 
-                new Enrollment{GroupID=2, StudentID=1, LessonID=1, CourseID=2050},
-                new Enrollment{GroupID=2, StudentID=2, LessonID=1, CourseID=2050},
-                new Enrollment{GroupID=2, StudentID=3, LessonID=1, CourseID=2050},
-                new Enrollment{GroupID=2, StudentID=4, LessonID=1, CourseID=2050}
+                new Enrollment{GroupID=2, StudentID=1, LessonID=1, CourseID=2},
+                new Enrollment{GroupID=2, StudentID=2, LessonID=1, CourseID=2},
+                new Enrollment{GroupID=2, StudentID=3, LessonID=1, CourseID=2},
+                new Enrollment{GroupID=2, StudentID=4, LessonID=1, CourseID=2}
             };
+             enrollments.ForEach(e => context.Enrollments.Add(e));
+               context.SaveChanges(); */
         }
     }
 }

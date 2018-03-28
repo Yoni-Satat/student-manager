@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GroupID, "GroupID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("GroupID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("GroupID", (SelectList)ViewBag.MyList, "Please select", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.GroupID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StudentID, "StudentID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("StudentID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("StudentID", (SelectList)ViewBag.MyList, "Please select", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.StudentID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LessonID, "LessonID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("LessonID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("LessonID", (SelectList)ViewBag.MyList, "Please select", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.LessonID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CourseID, "CourseID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CourseID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CourseID", (SelectList)ViewBag.MyList, "Please select", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CourseID, "", new { @class = "text-danger" })
             </div>
         </div>
