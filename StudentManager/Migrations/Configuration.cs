@@ -1,23 +1,93 @@
 namespace StudentManager.Migrations
 {
+    using StudentManager.DAL;
+    using StudentManager.Models;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<StudentManager.DAL.SMContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<SMContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(StudentManager.DAL.SMContext context)
+        protected override void Seed(SMContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var students = new List<Student>
+            {
+            new Student{FirstName="Carson",LastName="Alexander",DateOfBirth=DateTime.Parse("2005-09-01"),
+                        MatricNumber ="SN0001", Gender="Male",
+                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="",
+                        Groups=new List<Group>()},
+            new Student{FirstName="Meredith",LastName="Alonso",DateOfBirth=DateTime.Parse("2002-04-11"),
+                        MatricNumber ="SN0002", Gender="Female",
+                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="",
+                        Groups=new List<Group>()},
+            new Student{FirstName="Arturo",LastName="Anand",DateOfBirth=DateTime.Parse("2003-09-01"),
+                        MatricNumber ="SN0003", Gender="Male",
+                        Adjustments=true, Origin="EU", YearOfStudy=2018, ImageURL="",
+                        Groups=new List<Group>()},
+            new Student{FirstName="Gytis",LastName="Barzdukas",DateOfBirth=DateTime.Parse("2002-09-01"),
+                        MatricNumber ="SN0004", Gender="Male",
+                        Adjustments=false, Origin="USA", YearOfStudy=2018, ImageURL="",
+                        Groups=new List<Group>()},
+            new Student{FirstName="Yan",LastName="Li",DateOfBirth=DateTime.Parse("2002-09-01"),
+                        MatricNumber ="SN0005", Gender="Male",
+                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="",
+                        Groups=new List<Group>()},
+            new Student{FirstName="Peggy",LastName="Justice",DateOfBirth=DateTime.Parse("2001-09-01"),
+                        MatricNumber ="SN0006", Gender="Female",
+                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL="",
+                        Groups=new List<Group>()},
+            new Student{FirstName="Laura",LastName="Norman",DateOfBirth=DateTime.Parse("2003-09-01"),
+                        MatricNumber ="SN0007", Gender="Female",
+                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL="",
+                        Groups=new List<Group>()},
+            new Student{FirstName="Nino",LastName="Olivetto",DateOfBirth=DateTime.Parse("2005-09-01"),
+                        MatricNumber ="SN0008", Gender="Male",
+                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL="",
+                        Groups=new List<Group>()}
+            };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            students.ForEach(s => context.Students.AddOrUpdate(s));
+            context.SaveChanges();
+
+            var courses = new List<Course>
+            {
+            new Course{CourseID=1000,Title="Statistic 101",Level="A", Groups=new List<Group>()},
+            new Course{CourseID=1001,Title="Advanced Statistic",Level="A", Groups=new List<Group>()},
+            new Course{CourseID=1002,Title="Statistic in Education",Level="A", Groups=new List<Group>()},
+            };
+            courses.ForEach(c => context.Courses.AddOrUpdate(c));
+            context.SaveChanges();
+
+            var groups = new List<Group>
+            {
+                new Group{CourseID=1000, GroupTitle="Q-Step - 101", Students = new List<Student>()},
+                new Group{CourseID=1001, GroupTitle="Q-Step - Advanced", Students = new List<Student>()},
+                new Group{CourseID=1002, GroupTitle="Q-Step - Education", Students = new List<Student>()}
+            };
+            groups.ForEach(g => context.Groups.AddOrUpdate(g));
+            context.SaveChanges();
+
+            AddOrUpdateStudent(context, "Q-Step - 101", "Carson");
+            AddOrUpdateStudent(context, "Q-Step - 101", "Meredith");
+            AddOrUpdateStudent(context, "Q-Step - 101", "Arturo");
+
+            context.SaveChanges();
+
+        } //END OF Seed();
+        
+        void AddOrUpdateStudent(SMContext context, string groupTitle, string studentName)
+        {
+            var grp = context.Groups.SingleOrDefault(g => g.GroupTitle == groupTitle);
+            var stu = grp.Students.SingleOrDefault(s => s.FirstName == studentName);
+            if (stu == null)
+                grp.Students.Add(context.Students.Single(s => s.FirstName == studentName));
         }
     }
 }

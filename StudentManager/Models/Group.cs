@@ -11,6 +11,7 @@ namespace StudentManager.Models
         public int CourseID { get; set; }
         public string GroupTitle { get; set; }
 
+        public virtual Course Course { get; set; }
         public virtual ICollection<Student> Students { get; set; }
     }
 }

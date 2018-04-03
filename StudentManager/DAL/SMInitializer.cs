@@ -11,7 +11,7 @@ namespace StudentManager.DAL
     {
         protected override void Seed(SMContext context)
         {
-
+           /*
            var students = new List<Student>
             {
             new Student{FirstName="Carson",LastName="Alexander",DateOfBirth=DateTime.Parse("2005-09-01"),
@@ -44,7 +44,7 @@ namespace StudentManager.DAL
             context.SaveChanges();
 
 
-           /* var Lessons = new List<Lesson>
+           var Lessons = new List<Lesson>
             {
             new Lesson{Topic="Introduction",StartTime=DateTime.Parse("2002-04-11"),
                        EndTime =DateTime.Parse("2002-04-11"),IsMandatory=false,Location="CMB 1.12"},
@@ -68,7 +68,7 @@ namespace StudentManager.DAL
                        EndTime=DateTime.Parse("2002-04-11"),IsMandatory=false, Location="CMB 1.12"}
             };
             Lessons.ForEach(s => context.Lessons.Add(s));
-            context.SaveChanges(); */
+            context.SaveChanges();
 
             var courses = new List<Course>
             {
@@ -87,6 +87,8 @@ namespace StudentManager.DAL
             };
             groups.ForEach(g => context.Groups.Add(g));
             context.SaveChanges();
+
+            */
         } 
            
     }
