@@ -9,6 +9,7 @@ namespace StudentManager.DAL
 	{
         public SMContext() : base("SMContext")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Student> Students { get; set; }

@@ -74,20 +74,24 @@ namespace StudentManager.Migrations
             groups.ForEach(g => context.Groups.AddOrUpdate(g));
             context.SaveChanges();
 
-            AddOrUpdateStudent(context, "Q-Step - 101", "Carson");
-            AddOrUpdateStudent(context, "Q-Step - 101", "Meredith");
-            AddOrUpdateStudent(context, "Q-Step - 101", "Arturo");
+            AddOrUpdateStudent(context, 1, 1);
+            AddOrUpdateStudent(context, 1, 2);
+            AddOrUpdateStudent(context, 1, 3);
+            AddOrUpdateStudent(context, 1, 4);
+            AddOrUpdateStudent(context, 1, 5);
 
             context.SaveChanges();
 
         } //END OF Seed();
         
-        void AddOrUpdateStudent(SMContext context, string groupTitle, string studentName)
+        void AddOrUpdateStudent(SMContext context, int groupID, int studentID)
         {
-            var grp = context.Groups.SingleOrDefault(g => g.GroupTitle == groupTitle);
-            var stu = grp.Students.SingleOrDefault(s => s.FirstName == studentName);
+            var grp = context.Groups.SingleOrDefault(g => g.GroupID == groupID);
+            var stu = grp.Students.SingleOrDefault(s => s.StudentID == studentID);
             if (stu == null)
-                grp.Students.Add(context.Students.Single(s => s.FirstName == studentName));
+                grp.Students.Add(context.Students.Single(s => s.StudentID == studentID));
         }
+
+        
     }
 }
