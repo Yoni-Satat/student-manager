@@ -11,107 +11,107 @@ using StudentManager.Models;
 
 namespace StudentManager.Controllers
 {
-    public class GroupsController : Controller
+    public class StudentController : Controller
     {
         private SMContext db = new SMContext();
 
-        // GET: Groups
+        // GET: Student
         public ActionResult Index()
         {
-            return View(db.Groups.ToList());
+            return View(db.Students.ToList());
         }
 
-        // GET: Groups/Details/5
+        // GET: Student/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
-            if (group == null)
+            Student student = db.Students.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(group);
+            return View(student);
         }
 
-        // GET: Groups/Create
+        // GET: Student/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Groups/Create
+        // POST: Student/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GroupID,GroupName")] Group group)
+        public ActionResult Create([Bind(Include = "StudentID,FirstName,LastName,DateOfBirth,MatricNumber,Gender,Adjustments,Origin,YearOfStudy,ImageURL")] Student student)
         {
             if (ModelState.IsValid)
             {
-                db.Groups.Add(group);
+                db.Students.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(group);
+            return View(student);
         }
 
-        // GET: Groups/Edit/5
+        // GET: Student/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
-            if (group == null)
+            Student student = db.Students.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(group);
+            return View(student);
         }
 
-        // POST: Groups/Edit/5
+        // POST: Student/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "GroupID,GroupName")] Group group)
+        public ActionResult Edit([Bind(Include = "StudentID,FirstName,LastName,DateOfBirth,MatricNumber,Gender,Adjustments,Origin,YearOfStudy,ImageURL")] Student student)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(group).State = EntityState.Modified;
+                db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(group);
+            return View(student);
         }
 
-        // GET: Groups/Delete/5
+        // GET: Student/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
-            if (group == null)
+            Student student = db.Students.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(group);
+            return View(student);
         }
 
-        // POST: Groups/Delete/5
+        // POST: Student/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Group group = db.Groups.Find(id);
-            db.Groups.Remove(group);
+            Student student = db.Students.Find(id);
+            db.Students.Remove(student);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

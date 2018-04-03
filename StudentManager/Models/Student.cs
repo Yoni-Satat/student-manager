@@ -10,7 +10,6 @@ namespace StudentManager.Models
         public int StudentID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool IsPresent { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string MatricNumber { get; set; }
         public string Gender { get; set; }
@@ -19,6 +18,6 @@ namespace StudentManager.Models
         public int YearOfStudy { get; set; }
         public string ImageURL { get; set; }
 
-        public virtual Group Group { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
     }
 }

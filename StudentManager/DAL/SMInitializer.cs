@@ -11,7 +11,8 @@ namespace StudentManager.DAL
     {
         protected override void Seed(SMContext context)
         {
-            var students = new List<Student>
+
+           var students = new List<Student>
             {
             new Student{FirstName="Carson",LastName="Alexander",DateOfBirth=DateTime.Parse("2005-09-01"),
                         MatricNumber ="SN0001", Gender="Male",
@@ -43,7 +44,7 @@ namespace StudentManager.DAL
             context.SaveChanges();
 
 
-            var Lessons = new List<Lesson>
+           /* var Lessons = new List<Lesson>
             {
             new Lesson{Topic="Introduction",StartTime=DateTime.Parse("2002-04-11"),
                        EndTime =DateTime.Parse("2002-04-11"),IsMandatory=false,Location="CMB 1.12"},
@@ -67,38 +68,26 @@ namespace StudentManager.DAL
                        EndTime=DateTime.Parse("2002-04-11"),IsMandatory=false, Location="CMB 1.12"}
             };
             Lessons.ForEach(s => context.Lessons.Add(s));
-            context.SaveChanges();
+            context.SaveChanges(); */
 
             var courses = new List<Course>
             {
-            new Course{Title="Chemistry",Level="A",},
-            new Course{Title="Physico Meditation",Level="A",}
+            new Course{CourseID=1000,Title="Statistic 101",Level="A"},
+            new Course{CourseID=1001,Title="Advanced Statistic",Level="A"},
+            new Course{CourseID=1002,Title="Statistic in Education",Level="A"},
             };
             courses.ForEach(s => context.Courses.Add(s));
             context.SaveChanges();
 
             var groups = new List<Group>
             {
-                new Group{GroupName="C Sharp"},
-                new Group{GroupName="Javascript"}
+                new Group{CourseID=1000, GroupTitle="Q-Step - 101"},
+                new Group{CourseID=1001, GroupTitle="Q-Step - Advanced"},
+                new Group{CourseID=1002, GroupTitle="Q-Step - Education"}
             };
             groups.ForEach(g => context.Groups.Add(g));
             context.SaveChanges();
-
-            /*var enrollments = new List<Enrollment>
-            {
-                new Enrollment{GroupID=1, StudentID=1, LessonID=1, CourseID=1},
-                new Enrollment{GroupID=1, StudentID=2, LessonID=1, CourseID=1},
-                new Enrollment{GroupID=1, StudentID=3, LessonID=1, CourseID=1},
-                new Enrollment{GroupID=1, StudentID=4, LessonID=1, CourseID=1},
-
-                new Enrollment{GroupID=2, StudentID=1, LessonID=1, CourseID=2},
-                new Enrollment{GroupID=2, StudentID=2, LessonID=1, CourseID=2},
-                new Enrollment{GroupID=2, StudentID=3, LessonID=1, CourseID=2},
-                new Enrollment{GroupID=2, StudentID=4, LessonID=1, CourseID=2}
-            };
-             enrollments.ForEach(e => context.Enrollments.Add(e));
-               context.SaveChanges(); */
-        }
+        } 
+           
     }
 }
