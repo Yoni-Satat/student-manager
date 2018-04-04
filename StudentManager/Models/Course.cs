@@ -14,5 +14,6 @@ namespace StudentManager.Models
         public string Level { get; set; }
         
         public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }
