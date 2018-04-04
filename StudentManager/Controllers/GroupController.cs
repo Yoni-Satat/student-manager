@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using StudentManager.DAL;
 using StudentManager.Models;
+using StudentManager.ViewModels;
 
 namespace StudentManager.Controllers
 {
@@ -16,9 +17,19 @@ namespace StudentManager.Controllers
         private SMContext db = new SMContext();
 
         // GET: Group
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Groups.ToList());
+            var viewModel = new GroupIndexData();
+            viewModel.Groups = db.Groups
+                .Include(g => g.Course)
+                .Include(g => g.Students);
+            if(id != null)
+            {
+                ViewBag.GroupID = id.Value;
+                viewModel.Students = viewModel.Groups.Where(
+                    g => g.GroupID == id.Value).Single().Students;
+            }
+            return View(viewModel);
         }
 
         // GET: Group/Details/5
@@ -39,6 +50,7 @@ namespace StudentManager.Controllers
         // GET: Group/Create
         public ActionResult Create()
         {
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title");
             return View();
         }
 
@@ -56,6 +68,7 @@ namespace StudentManager.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", group.CourseID);
             return View(group);
         }
 
@@ -71,6 +84,7 @@ namespace StudentManager.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", group.CourseID);
             return View(group);
         }
 
@@ -87,6 +101,7 @@ namespace StudentManager.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", group.CourseID);
             return View(group);
         }
 

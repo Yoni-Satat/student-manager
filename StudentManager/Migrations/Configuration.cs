@@ -53,7 +53,7 @@ namespace StudentManager.Migrations
                         Groups=new List<Group>()}
             };
 
-            students.ForEach(s => context.Students.AddOrUpdate(s));
+            students.ForEach(s => context.Students.AddOrUpdate(p => p.StudentID, s));
             context.SaveChanges();
 
             var courses = new List<Course>
@@ -62,7 +62,7 @@ namespace StudentManager.Migrations
             new Course{CourseID=1001,Title="Advanced Statistic",Level="A", Groups=new List<Group>()},
             new Course{CourseID=1002,Title="Statistic in Education",Level="A", Groups=new List<Group>()},
             };
-            courses.ForEach(c => context.Courses.AddOrUpdate(c));
+            courses.ForEach(s => context.Courses.AddOrUpdate(p => p.CourseID, s));
             context.SaveChanges();
 
             var groups = new List<Group>
@@ -71,7 +71,7 @@ namespace StudentManager.Migrations
                 new Group{CourseID=1001, GroupTitle="Q-Step - Advanced", Students = new List<Student>()},
                 new Group{CourseID=1002, GroupTitle="Q-Step - Education", Students = new List<Student>()}
             };
-            groups.ForEach(g => context.Groups.AddOrUpdate(g));
+            groups.ForEach(s => context.Groups.AddOrUpdate(p => p.GroupID ,s));
             context.SaveChanges();
 
             AddOrUpdateStudent(context, 1, 1);
