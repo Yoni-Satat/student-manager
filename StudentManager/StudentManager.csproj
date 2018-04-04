@@ -148,6 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AttendancyController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -162,13 +163,13 @@
     <Compile Include="Migrations\201804031308558_InitialCreate.Designer.cs">
       <DependentUpon>201804031308558_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804041304294_ChangedSeed.cs" />
-    <Compile Include="Migrations\201804041304294_ChangedSeed.Designer.cs">
-      <DependentUpon>201804041304294_ChangedSeed.cs</DependentUpon>
+    <Compile Include="Migrations\201804042226357_AddAttendancyTable.cs" />
+    <Compile Include="Migrations\201804042226357_AddAttendancyTable.Designer.cs">
+      <DependentUpon>201804042226357_AddAttendancyTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804041741449_AddedLesson.cs" />
-    <Compile Include="Migrations\201804041741449_AddedLesson.Designer.cs">
-      <DependentUpon>201804041741449_AddedLesson.cs</DependentUpon>
+    <Compile Include="Migrations\201804042246307_UpdateSeedConig.cs" />
+    <Compile Include="Migrations\201804042246307_UpdateSeedConig.Designer.cs">
+      <DependentUpon>201804042246307_UpdateSeedConig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Models\Lesson.cs" />
     <Compile Include="Models\LessonLocation.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Attendancy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\GroupIndexData.cs" />
   </ItemGroup>
@@ -238,6 +240,11 @@
     <Content Include="Views\Lesson\Details.cshtml" />
     <Content Include="Views\Lesson\Edit.cshtml" />
     <Content Include="Views\Lesson\Index.cshtml" />
+    <Content Include="Views\Attendancy\Create.cshtml" />
+    <Content Include="Views\Attendancy\Delete.cshtml" />
+    <Content Include="Views\Attendancy\Details.cshtml" />
+    <Content Include="Views\Attendancy\Edit.cshtml" />
+    <Content Include="Views\Attendancy\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -259,11 +266,11 @@
     <EmbeddedResource Include="Migrations\201804031308558_InitialCreate.resx">
       <DependentUpon>201804031308558_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804041304294_ChangedSeed.resx">
-      <DependentUpon>201804041304294_ChangedSeed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804042226357_AddAttendancyTable.resx">
+      <DependentUpon>201804042226357_AddAttendancyTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804041741449_AddedLesson.resx">
-      <DependentUpon>201804041741449_AddedLesson.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804042246307_UpdateSeedConig.resx">
+      <DependentUpon>201804042246307_UpdateSeedConig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

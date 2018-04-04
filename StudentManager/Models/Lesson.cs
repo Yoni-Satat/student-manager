@@ -15,10 +15,10 @@ namespace StudentManager.Models
         public string Topic { get; set; }
 
         [Display(Name = "Start Time")]
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
 
         [Display(Name = "End Time")]
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
 
         [Display(Name = "Mandatory")]
         public bool IsMandatory { get; set; }  

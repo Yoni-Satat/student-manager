@@ -17,6 +17,7 @@ namespace StudentManager.DAL
         public DbSet<Group> Groups { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<LessonLocation> LessonLocations { get; set; }
+        public DbSet<Attendancy> Attendancies { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -31,7 +32,11 @@ namespace StudentManager.DAL
             modelBuilder.Entity<Lesson>()
                 .HasOptional(s => s.LessonLocation).WithOptionalDependent(l => l.Lesson);
 
-           
+            modelBuilder.Entity<Attendancy>()
+                 .HasMany(a => a.Groups).WithMany(g => g.Attendancies)
+                 .Map(t => t.MapLeftKey("GroupID")
+                 .MapRightKey("AttendancyID")
+                 .ToTable("GroupAttendancy"));
         }
 
     }

@@ -17,6 +17,15 @@ namespace StudentManager.Migrations
 
         protected override void Seed(SMContext context)
         {
+            var lessonLocation = new List<LessonLocation>
+            {
+                new LessonLocation{Building="CMB",RoomNumber=1.12,Notes="Take Laptop with HDMI"},
+                new LessonLocation{Building="TL",RoomNumber=2.56,Notes="Ask Euan for projector"},
+                new LessonLocation{Building="Main Library",RoomNumber=3.12,Notes="Quite please..."}
+            };
+            lessonLocation.ForEach(s => context.LessonLocations.AddOrUpdate(p => p.LessonLocationID, s));
+            context.SaveChanges();
+
             var students = new List<Student>
             {
             new Student{FirstName="Carson",LastName="Alexander",DateOfBirth=DateTime.Parse("2005-09-01"),
@@ -63,6 +72,18 @@ namespace StudentManager.Migrations
             new Course{CourseID=1002,Title="Statistic in Education",Level="A", Groups=new List<Group>()},
             };
             courses.ForEach(s => context.Courses.AddOrUpdate(p => p.CourseID, s));
+            context.SaveChanges();
+
+            var lessons = new List<Lesson>
+            {
+                new Lesson{CourseID=1000,LessonLocationID=1,Topic="Welcome and Induction"},
+                new Lesson{CourseID=1000,LessonLocationID=2,Topic="Regression to the mean"},
+                new Lesson{CourseID=1000,LessonLocationID=3,Topic="Variables"},
+                new Lesson{CourseID=1000,LessonLocationID=2,Topic="Constant"},
+                new Lesson{CourseID=1000,LessonLocationID=1,Topic="All day lab"},
+                new Lesson{CourseID=1000,LessonLocationID=3,Topic="Presentations"}
+            };
+            lessons.ForEach(s => context.Lessons.AddOrUpdate(p => p.LessonID, s));
             context.SaveChanges();
 
             var groups = new List<Group>

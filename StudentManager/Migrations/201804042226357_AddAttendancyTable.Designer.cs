@@ -7,13 +7,13 @@ namespace StudentManager.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ChangedSeed : IMigrationMetadata
+    public sealed partial class AddAttendancyTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangedSeed));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAttendancyTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804041304294_ChangedSeed"; }
+            get { return "201804042226357_AddAttendancyTable"; }
         }
         
         string IMigrationMetadata.Source

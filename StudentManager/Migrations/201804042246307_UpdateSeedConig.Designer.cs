@@ -7,13 +7,13 @@ namespace StudentManager.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddedLesson : IMigrationMetadata
+    public sealed partial class UpdateSeedConig : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedLesson));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateSeedConig));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804041741449_AddedLesson"; }
+            get { return "201804042246307_UpdateSeedConig"; }
         }
         
         string IMigrationMetadata.Source
