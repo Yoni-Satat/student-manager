@@ -1,4 +1,4 @@
-# Student Manager - For University Tutor to manage student's attendancies
+# Student Manager - For University Tutor to manage student's attendances
 
 ## Student Manager
 
@@ -17,14 +17,14 @@
 	- have a collections of students
 
 - Lesson:
-	- can have only one course associated with
+	- can have one course associated with
 	- can have collection of students (from study group)
 
 - Student:
 	- can enroll to multiple study groups
 
 - Attendancy:
-	- can have only one course, one lesson and a collection of students
+	- can have one course, one lesson and a collection of students
 
 
 - The app should flag up absences as follows:
