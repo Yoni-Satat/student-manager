@@ -17,13 +17,13 @@ namespace StudentManager.Migrations
 
         protected override void Seed(SMContext context)
         {
-            var lessonLocation = new List<LessonLocation>
+            var Location = new List<Location>
             {
-                new LessonLocation{Building="CMB",RoomNumber=1.12,Notes="Take Laptop with HDMI"},
-                new LessonLocation{Building="TL",RoomNumber=2.56,Notes="Ask Euan for projector"},
-                new LessonLocation{Building="Main Library",RoomNumber=3.12,Notes="Quite please..."}
+                new Location{Building="CMB",RoomNumber=1.12,Notes="Take Laptop with HDMI"},
+                new Location{Building="TL",RoomNumber=2.56,Notes="Ask Euan for projector"},
+                new Location{Building="Main Library",RoomNumber=3.12,Notes="Quite please..."}
             };
-            lessonLocation.ForEach(s => context.LessonLocations.AddOrUpdate(p => p.LessonLocationID, s));
+            Location.ForEach(s => context.Locations.AddOrUpdate(p => p.LocationID, s));
             context.SaveChanges();
 
             var students = new List<Student>
@@ -67,21 +67,21 @@ namespace StudentManager.Migrations
 
             var courses = new List<Course>
             {
-            new Course{CourseID=1000,Title="Statistic 101",Level="A", Groups=new List<Group>()},
-            new Course{CourseID=1001,Title="Advanced Statistic",Level="A", Groups=new List<Group>()},
-            new Course{CourseID=1002,Title="Statistic in Education",Level="A", Groups=new List<Group>()},
+            new Course{CourseID=1000,Title="Statistic 101",Level="A"},
+            new Course{CourseID=1001,Title="Advanced Statistic",Level="A"},
+            new Course{CourseID=1002,Title="Statistic in Education",Level="A"},
             };
             courses.ForEach(s => context.Courses.AddOrUpdate(p => p.CourseID, s));
             context.SaveChanges();
 
             var lessons = new List<Lesson>
             {
-                new Lesson{CourseID=1000,LessonLocationID=1,Topic="Welcome and Induction"},
-                new Lesson{CourseID=1000,LessonLocationID=2,Topic="Regression to the mean"},
-                new Lesson{CourseID=1000,LessonLocationID=3,Topic="Variables"},
-                new Lesson{CourseID=1000,LessonLocationID=2,Topic="Constant"},
-                new Lesson{CourseID=1000,LessonLocationID=1,Topic="All day lab"},
-                new Lesson{CourseID=1000,LessonLocationID=3,Topic="Presentations"}
+                new Lesson{CourseID=1000,LocationID=1,Topic="Welcome and Induction"},
+                new Lesson{CourseID=1000,LocationID=2,Topic="Regression to the mean"},
+                new Lesson{CourseID=1000,LocationID=3,Topic="Variables"},
+                new Lesson{CourseID=1000,LocationID=2,Topic="Constant"},
+                new Lesson{CourseID=1000,LocationID=1,Topic="All day lab"},
+                new Lesson{CourseID=1000,LocationID=3,Topic="Presentations"}
             };
             lessons.ForEach(s => context.Lessons.AddOrUpdate(p => p.LessonID, s));
             context.SaveChanges();
@@ -95,13 +95,32 @@ namespace StudentManager.Migrations
             groups.ForEach(s => context.Groups.AddOrUpdate(p => p.GroupID ,s));
             context.SaveChanges();
 
+            var attendancy = new List<Attendancy>
+            {
+                new Attendancy{TutorName="Gitit Kadar-Satat", Comments="Yoni called in sick",
+                               LocationID=1 , Groups = new List<Group>()},
+                new Attendancy{TutorName="Gitit Kadar-Satat", Comments="Great lesson!",
+                               LocationID=2 , Groups = new List<Group>()},
+                new Attendancy{TutorName="Gitit Kadar-Satat", Comments="The students enjoyed the lab",
+                               LocationID=1 , Groups = new List<Group>()}
+            };
+
+            attendancy.ForEach(s => context.Attendances.AddOrUpdate(p => p.AttendancyID, s));
+            context.SaveChanges();
+
             AddOrUpdateStudent(context, 1, 1);
             AddOrUpdateStudent(context, 1, 2);
             AddOrUpdateStudent(context, 1, 3);
             AddOrUpdateStudent(context, 1, 4);
             AddOrUpdateStudent(context, 1, 5);
 
+            AddOrUpdateGroup(context, 1, 1);
+            AddOrUpdateGroup(context, 1, 2);
+            AddOrUpdateGroup(context, 1, 3);
+
             context.SaveChanges();
+
+            
 
         } //END OF Seed();
         
@@ -111,6 +130,16 @@ namespace StudentManager.Migrations
             var stu = grp.Students.SingleOrDefault(s => s.StudentID == studentID);
             if (stu == null)
                 grp.Students.Add(context.Students.Single(s => s.StudentID == studentID));
+        }
+
+        void AddOrUpdateGroup(SMContext context, int attendancyID, int groupID)
+        {
+            var att = context.Attendances.SingleOrDefault(a => a.AttendancyID == attendancyID);
+            var grp = att.Groups.SingleOrDefault(g => g.GroupID == groupID);
+
+            if (grp == null)
+                att.Groups.Add(context.Groups.Single(g => g.GroupID == groupID));
+                
         }
 
         

@@ -3,7 +3,7 @@ namespace StudentManager.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddAttendancyTable : DbMigration
+    public partial class UpdateAllTables : DbMigration
     {
         public override void Up()
         {
@@ -12,11 +12,10 @@ namespace StudentManager.Migrations
                 c => new
                     {
                         AttendancyID = c.Int(nullable: false, identity: true),
+                        LocationID = c.Int(nullable: false),
                         TutorName = c.String(),
-                        LessonLocationID = c.Int(nullable: false),
-                        LessonTopic = c.String(),
-                        StudentName = c.String(),
-                        IsPresent = c.Boolean(nullable: false),
+                        LessonStart = c.DateTime(),
+                        LessonEnd = c.DateTime(),
                         Comments = c.String(),
                     })
                 .PrimaryKey(t => t.AttendancyID);
@@ -27,29 +26,28 @@ namespace StudentManager.Migrations
                     {
                         LessonID = c.Int(nullable: false, identity: true),
                         CourseID = c.Int(nullable: false),
-                        LessonLocationID = c.Int(nullable: false),
+                        LocationID = c.Int(),
                         Topic = c.String(),
-                        StartTime = c.DateTime(nullable: false),
-                        EndTime = c.DateTime(nullable: false),
+                        LessonStart = c.DateTime(),
+                        LessonEnd = c.DateTime(),
                         IsMandatory = c.Boolean(nullable: false),
-                        LessonLocation_LessonLocationID = c.Int(),
                     })
                 .PrimaryKey(t => t.LessonID)
                 .ForeignKey("dbo.Course", t => t.CourseID, cascadeDelete: true)
-                .ForeignKey("dbo.LessonLocation", t => t.LessonLocation_LessonLocationID)
+                .ForeignKey("dbo.Location", t => t.LocationID)
                 .Index(t => t.CourseID)
-                .Index(t => t.LessonLocation_LessonLocationID);
+                .Index(t => t.LocationID);
             
             CreateTable(
-                "dbo.LessonLocation",
+                "dbo.Location",
                 c => new
                     {
-                        LessonLocationID = c.Int(nullable: false, identity: true),
+                        LocationID = c.Int(nullable: false, identity: true),
                         Building = c.String(),
                         RoomNumber = c.Double(nullable: false),
                         Notes = c.String(),
                     })
-                .PrimaryKey(t => t.LessonLocationID);
+                .PrimaryKey(t => t.LocationID);
             
             CreateTable(
                 "dbo.GroupAttendancy",
@@ -59,29 +57,31 @@ namespace StudentManager.Migrations
                         AttendancyID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.GroupID, t.AttendancyID })
-                .ForeignKey("dbo.Attendancy", t => t.GroupID, cascadeDelete: true)
-                .ForeignKey("dbo.Group", t => t.AttendancyID, cascadeDelete: true)
+                .ForeignKey("dbo.Group", t => t.GroupID, cascadeDelete: true)
+                .ForeignKey("dbo.Attendancy", t => t.AttendancyID, cascadeDelete: true)
                 .Index(t => t.GroupID)
                 .Index(t => t.AttendancyID);
             
+            AddColumn("dbo.Student", "IsPresent", c => c.Boolean(nullable: false));
             AlterColumn("dbo.Student", "FirstName", c => c.String(nullable: false));
             AlterColumn("dbo.Student", "LastName", c => c.String(nullable: false));
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.GroupAttendancy", "AttendancyID", "dbo.Group");
-            DropForeignKey("dbo.GroupAttendancy", "GroupID", "dbo.Attendancy");
-            DropForeignKey("dbo.Lesson", "LessonLocation_LessonLocationID", "dbo.LessonLocation");
+            DropForeignKey("dbo.Lesson", "LocationID", "dbo.Location");
             DropForeignKey("dbo.Lesson", "CourseID", "dbo.Course");
+            DropForeignKey("dbo.GroupAttendancy", "AttendancyID", "dbo.Attendancy");
+            DropForeignKey("dbo.GroupAttendancy", "GroupID", "dbo.Group");
             DropIndex("dbo.GroupAttendancy", new[] { "AttendancyID" });
             DropIndex("dbo.GroupAttendancy", new[] { "GroupID" });
-            DropIndex("dbo.Lesson", new[] { "LessonLocation_LessonLocationID" });
+            DropIndex("dbo.Lesson", new[] { "LocationID" });
             DropIndex("dbo.Lesson", new[] { "CourseID" });
             AlterColumn("dbo.Student", "LastName", c => c.String());
             AlterColumn("dbo.Student", "FirstName", c => c.String());
+            DropColumn("dbo.Student", "IsPresent");
             DropTable("dbo.GroupAttendancy");
-            DropTable("dbo.LessonLocation");
+            DropTable("dbo.Location");
             DropTable("dbo.Lesson");
             DropTable("dbo.Attendancy");
         }

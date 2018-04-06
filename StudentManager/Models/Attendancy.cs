@@ -10,21 +10,16 @@ namespace StudentManager.Models
     public class Attendancy
     {
         public int AttendancyID { get; set; }
+        public int LocationID { get; set; }
 
-        [Display(Name = "Tutor Name")]
+        [Display(Name = "Tutor name")]
         public string TutorName { get; set; }
 
-        [Display(Name = "Location")]
-        public int LessonLocationID { get; set; }
+        [Display(Name = "Lesson start time")]
+        public DateTime? LessonStart { get; set; }
 
-        [Display(Name = "Lesson Topic")]
-        public string LessonTopic { get; set; }
-
-        [Display(Name = "Student Name")]
-        public string StudentName { get; set; }
-
-        [Display(Name = "Mark Presesnt")]
-        public bool IsPresent { get; set; }
+        [Display(Name = "Lesson End time")]
+        public DateTime? LessonEnd { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }

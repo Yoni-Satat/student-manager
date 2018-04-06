@@ -16,8 +16,8 @@ namespace StudentManager.DAL
         public DbSet<Course> Courses { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
-        public DbSet<LessonLocation> LessonLocations { get; set; }
-        public DbSet<Attendancy> Attendancies { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Attendancy> Attendances { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -29,15 +29,12 @@ namespace StudentManager.DAL
                  .MapRightKey("StudentID")
                  .ToTable("GroupStudent"));
 
-            modelBuilder.Entity<Lesson>()
-                .HasOptional(s => s.LessonLocation).WithOptionalDependent(l => l.Lesson);
-
-            modelBuilder.Entity<Attendancy>()
-                 .HasMany(a => a.Groups).WithMany(g => g.Attendancies)
-                 .Map(t => t.MapLeftKey("GroupID")
-                 .MapRightKey("AttendancyID")
-                 .ToTable("GroupAttendancy"));
-        }
+            modelBuilder.Entity<Group>()
+                .HasMany(g => g.Attendances).WithMany(a => a.Groups)
+                .Map(t => t.MapLeftKey("GroupID")
+                    .MapRightKey("AttendancyID")
+                    .ToTable("GroupAttendancy"));
+        }     
 
     }
 }

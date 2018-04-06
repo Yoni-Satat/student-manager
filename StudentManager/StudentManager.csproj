@@ -148,12 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AttendancyController.cs" />
-    <Compile Include="Controllers\CourseController.cs" />
-    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LessonController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="DAL\SMContext.cs" />
     <Compile Include="DAL\SMInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -163,23 +158,18 @@
     <Compile Include="Migrations\201804031308558_InitialCreate.Designer.cs">
       <DependentUpon>201804031308558_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804042226357_AddAttendancyTable.cs" />
-    <Compile Include="Migrations\201804042226357_AddAttendancyTable.Designer.cs">
-      <DependentUpon>201804042226357_AddAttendancyTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804042246307_UpdateSeedConig.cs" />
-    <Compile Include="Migrations\201804042246307_UpdateSeedConig.Designer.cs">
-      <DependentUpon>201804042246307_UpdateSeedConig.cs</DependentUpon>
+    <Compile Include="Migrations\201804060243166_UpdateAllTables.cs" />
+    <Compile Include="Migrations\201804060243166_UpdateAllTables.Designer.cs">
+      <DependentUpon>201804060243166_UpdateAllTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Lesson.cs" />
-    <Compile Include="Models\LessonLocation.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Attendancy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\GroupIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -220,34 +210,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Student\Create.cshtml" />
-    <Content Include="Views\Student\Delete.cshtml" />
-    <Content Include="Views\Student\Details.cshtml" />
-    <Content Include="Views\Student\Edit.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
-    <Content Include="Views\Course\Create.cshtml" />
-    <Content Include="Views\Course\Delete.cshtml" />
-    <Content Include="Views\Course\Details.cshtml" />
-    <Content Include="Views\Course\Edit.cshtml" />
-    <Content Include="Views\Course\Index.cshtml" />
-    <Content Include="Views\Group\Create.cshtml" />
-    <Content Include="Views\Group\Delete.cshtml" />
-    <Content Include="Views\Group\Details.cshtml" />
-    <Content Include="Views\Group\Edit.cshtml" />
-    <Content Include="Views\Group\Index.cshtml" />
-    <Content Include="Views\Lesson\Create.cshtml" />
-    <Content Include="Views\Lesson\Delete.cshtml" />
-    <Content Include="Views\Lesson\Details.cshtml" />
-    <Content Include="Views\Lesson\Edit.cshtml" />
-    <Content Include="Views\Lesson\Index.cshtml" />
-    <Content Include="Views\Attendancy\Create.cshtml" />
-    <Content Include="Views\Attendancy\Delete.cshtml" />
-    <Content Include="Views\Attendancy\Details.cshtml" />
-    <Content Include="Views\Attendancy\Edit.cshtml" />
-    <Content Include="Views\Attendancy\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -266,11 +232,8 @@
     <EmbeddedResource Include="Migrations\201804031308558_InitialCreate.resx">
       <DependentUpon>201804031308558_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804042226357_AddAttendancyTable.resx">
-      <DependentUpon>201804042226357_AddAttendancyTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804042246307_UpdateSeedConig.resx">
-      <DependentUpon>201804042246307_UpdateSeedConig.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804060243166_UpdateAllTables.resx">
+      <DependentUpon>201804060243166_UpdateAllTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

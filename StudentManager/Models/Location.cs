@@ -7,9 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentManager.Models
 {
-    public class LessonLocation
+    public class Location
     {
-        public int LessonLocationID { get; set; }
+        public int LocationID { get; set; }
+
         public string Building { get; set; }
 
         [Display(Name = "Room Number")]
@@ -17,9 +18,7 @@ namespace StudentManager.Models
 
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
-        // In View: Html.EditorFor(m => m.Description)
-
-        public virtual Lesson Lesson { get; set; }
+        // In View: Html.EditorFor(m => m.Notes)
     }
 }
 
