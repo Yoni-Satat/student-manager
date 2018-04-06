@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -16,20 +17,20 @@ namespace StudentManager.Controllers
         private SMContext db = new SMContext();
 
         // GET: Attendancy
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var attendances = db.Attendances.Include(a => a.Location);
-            return View(attendances.ToList());
+            return View(await attendances.ToListAsync());
         }
 
         // GET: Attendancy/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Attendancy attendancy = db.Attendances.Find(id);
+            Attendancy attendancy = await db.Attendances.FindAsync(id);
             if (attendancy == null)
             {
                 return HttpNotFound();
@@ -49,12 +50,12 @@ namespace StudentManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AttendancyID,LocationID,TutorName,LessonStart,LessonEnd,AttendancyDate,Comments")] Attendancy attendancy)
+        public async Task<ActionResult> Create([Bind(Include = "AttendancyID,LocationID,TutorName,LessonStart,LessonEnd,AttendancyDate,Comments")] Attendancy attendancy)
         {
             if (ModelState.IsValid)
             {
                 db.Attendances.Add(attendancy);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -63,13 +64,13 @@ namespace StudentManager.Controllers
         }
 
         // GET: Attendancy/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Attendancy attendancy = db.Attendances.Find(id);
+            Attendancy attendancy = await db.Attendances.FindAsync(id);
             if (attendancy == null)
             {
                 return HttpNotFound();
@@ -83,12 +84,12 @@ namespace StudentManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AttendancyID,LocationID,TutorName,LessonStart,LessonEnd,AttendancyDate,Comments")] Attendancy attendancy)
+        public async Task<ActionResult> Edit([Bind(Include = "AttendancyID,LocationID,TutorName,LessonStart,LessonEnd,AttendancyDate,Comments")] Attendancy attendancy)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(attendancy).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building", attendancy.LocationID);
@@ -96,13 +97,13 @@ namespace StudentManager.Controllers
         }
 
         // GET: Attendancy/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Attendancy attendancy = db.Attendances.Find(id);
+            Attendancy attendancy = await db.Attendances.FindAsync(id);
             if (attendancy == null)
             {
                 return HttpNotFound();
@@ -113,11 +114,11 @@ namespace StudentManager.Controllers
         // POST: Attendancy/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Attendancy attendancy = db.Attendances.Find(id);
+            Attendancy attendancy = await db.Attendances.FindAsync(id);
             db.Attendances.Remove(attendancy);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
