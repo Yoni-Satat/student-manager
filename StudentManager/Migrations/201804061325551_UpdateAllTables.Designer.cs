@@ -13,7 +13,7 @@ namespace StudentManager.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201804060243166_UpdateAllTables"; }
+            get { return "201804061325551_UpdateAllTables"; }
         }
         
         string IMigrationMetadata.Source

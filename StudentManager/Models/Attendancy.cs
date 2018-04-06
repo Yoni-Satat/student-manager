@@ -24,7 +24,7 @@ namespace StudentManager.Models
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
 
-
+        public virtual Location Location { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
     }
 }

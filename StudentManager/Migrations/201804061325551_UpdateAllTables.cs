@@ -18,7 +18,9 @@ namespace StudentManager.Migrations
                         LessonEnd = c.DateTime(),
                         Comments = c.String(),
                     })
-                .PrimaryKey(t => t.AttendancyID);
+                .PrimaryKey(t => t.AttendancyID)
+                .ForeignKey("dbo.Location", t => t.LocationID, cascadeDelete: true)
+                .Index(t => t.LocationID);
             
             CreateTable(
                 "dbo.Lesson",
@@ -69,6 +71,7 @@ namespace StudentManager.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.Attendancy", "LocationID", "dbo.Location");
             DropForeignKey("dbo.Lesson", "LocationID", "dbo.Location");
             DropForeignKey("dbo.Lesson", "CourseID", "dbo.Course");
             DropForeignKey("dbo.GroupAttendancy", "AttendancyID", "dbo.Attendancy");
@@ -77,6 +80,7 @@ namespace StudentManager.Migrations
             DropIndex("dbo.GroupAttendancy", new[] { "GroupID" });
             DropIndex("dbo.Lesson", new[] { "LocationID" });
             DropIndex("dbo.Lesson", new[] { "CourseID" });
+            DropIndex("dbo.Attendancy", new[] { "LocationID" });
             AlterColumn("dbo.Student", "LastName", c => c.String());
             AlterColumn("dbo.Student", "FirstName", c => c.String());
             DropColumn("dbo.Student", "IsPresent");
