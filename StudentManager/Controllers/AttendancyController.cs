@@ -49,7 +49,7 @@ namespace StudentManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AttendancyID,LocationID,TutorName,LessonStart,LessonEnd,Comments")] Attendancy attendancy)
+        public ActionResult Create([Bind(Include = "AttendancyID,LocationID,TutorName,LessonStart,LessonEnd,AttendancyDate,Comments")] Attendancy attendancy)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace StudentManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AttendancyID,LocationID,TutorName,LessonStart,LessonEnd,Comments")] Attendancy attendancy)
+        public ActionResult Edit([Bind(Include = "AttendancyID,LocationID,TutorName,LessonStart,LessonEnd,AttendancyDate,Comments")] Attendancy attendancy)
         {
             if (ModelState.IsValid)
             {

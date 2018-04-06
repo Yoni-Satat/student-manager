@@ -168,6 +168,10 @@
     <Compile Include="Migrations\201804061325551_UpdateAllTables.Designer.cs">
       <DependentUpon>201804061325551_UpdateAllTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804061334512_AddDateToAttendancyTable.cs" />
+    <Compile Include="Migrations\201804061334512_AddDateToAttendancyTable.Designer.cs">
+      <DependentUpon>201804061334512_AddDateToAttendancyTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Group.cs" />
@@ -176,6 +180,7 @@
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Attendancy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AttendancyIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -249,7 +254,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -270,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804061325551_UpdateAllTables.resx">
       <DependentUpon>201804061325551_UpdateAllTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804061334512_AddDateToAttendancyTable.resx">
+      <DependentUpon>201804061334512_AddDateToAttendancyTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

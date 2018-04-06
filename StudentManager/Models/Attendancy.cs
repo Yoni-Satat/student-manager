@@ -15,11 +15,14 @@ namespace StudentManager.Models
         [Display(Name = "Tutor name")]
         public string TutorName { get; set; }
 
-        [Display(Name = "Lesson start time")]
+        [Display(Name = "Lesson start time"), DataType(DataType.Time)]
         public DateTime? LessonStart { get; set; }
 
-        [Display(Name = "Lesson End time")]
+        [Display(Name = "Lesson End time"), DataType(DataType.Time)]
         public DateTime? LessonEnd { get; set; }
+
+        [Display(Name = "Date"), DataType(DataType.Date)]
+        public DateTime? AttendancyDate { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
