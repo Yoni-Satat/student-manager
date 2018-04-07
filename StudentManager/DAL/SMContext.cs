@@ -15,25 +15,16 @@ namespace StudentManager.DAL
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<Lesson> Lessons { get; set; }
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<Attendancy> Attendancies { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            /* modelBuilder.Entity<Group>()
-            .HasMany(g => g.Students).WithMany
-            .Map(t => t.MapLeftKey("GroupID")
-                .MapRightKey("StudentID")
-                .ToTable("GroupStudent"));  */
-
             modelBuilder.Entity<Group>()
-               .HasMany(g => g.Attendances).WithMany(a => a.Groups)
+               .HasMany(g => g.Students).WithMany(s => s.Groups)
                .Map(t => t.MapLeftKey("GroupID")
-                   .MapRightKey("AttendancyID")
-                   .ToTable("GroupAttendancy"));
+                   .MapRightKey("StudentID")
+                   .ToTable("StudentGroup"));
         }
 
     }

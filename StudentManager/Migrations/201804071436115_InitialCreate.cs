@@ -34,8 +34,8 @@ namespace StudentManager.Migrations
                 c => new
                     {
                         StudentID = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
+                        FirstName = c.String(nullable: false),
+                        LastName = c.String(nullable: false),
                         DateOfBirth = c.DateTime(nullable: false),
                         MatricNumber = c.String(),
                         Gender = c.String(),
@@ -43,11 +43,12 @@ namespace StudentManager.Migrations
                         Origin = c.String(),
                         YearOfStudy = c.Int(nullable: false),
                         ImageURL = c.String(),
+                        IsPresent = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.StudentID);
             
             CreateTable(
-                "dbo.GroupStudent",
+                "dbo.StudentGroup",
                 c => new
                     {
                         GroupID = c.Int(nullable: false),
@@ -63,13 +64,13 @@ namespace StudentManager.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.StudentGroup", "StudentID", "dbo.Student");
+            DropForeignKey("dbo.StudentGroup", "GroupID", "dbo.Group");
             DropForeignKey("dbo.Group", "CourseID", "dbo.Course");
-            DropForeignKey("dbo.GroupStudent", "StudentID", "dbo.Student");
-            DropForeignKey("dbo.GroupStudent", "GroupID", "dbo.Group");
-            DropIndex("dbo.GroupStudent", new[] { "StudentID" });
-            DropIndex("dbo.GroupStudent", new[] { "GroupID" });
+            DropIndex("dbo.StudentGroup", new[] { "StudentID" });
+            DropIndex("dbo.StudentGroup", new[] { "GroupID" });
             DropIndex("dbo.Group", new[] { "CourseID" });
-            DropTable("dbo.GroupStudent");
+            DropTable("dbo.StudentGroup");
             DropTable("dbo.Student");
             DropTable("dbo.Group");
             DropTable("dbo.Course");
