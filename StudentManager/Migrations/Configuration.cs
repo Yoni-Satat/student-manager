@@ -17,14 +17,14 @@ namespace StudentManager.Migrations
 
         protected override void Seed(SMContext context)
         {
-            /*var Location = new List<Location>
+            var Location = new List<Location>
             {
                 new Location{Building="CMB",RoomNumber=1.12,Notes="Take Laptop with HDMI"},
                 new Location{Building="TL",RoomNumber=2.56,Notes="Ask Euan for projector"},
                 new Location{Building="Main Library",RoomNumber=3.12,Notes="Quite please..."}
             };
             Location.ForEach(s => context.Locations.AddOrUpdate(p => p.LocationID, s));
-            context.SaveChanges();*/
+            context.SaveChanges();
 
             var students = new List<Student>
             {
@@ -66,7 +66,7 @@ namespace StudentManager.Migrations
             courses.ForEach(s => context.Courses.AddOrUpdate(p => p.CourseID, s));
             context.SaveChanges();
 
-           /* var lessons = new List<Lesson>
+           var lessons = new List<Lesson>
             {
                 new Lesson{CourseID=1000,LocationID=1,Topic="Welcome and Induction"},
                 new Lesson{CourseID=1000,LocationID=2,Topic="Regression to the mean"},
@@ -76,7 +76,7 @@ namespace StudentManager.Migrations
                 new Lesson{CourseID=1000,LocationID=3,Topic="Presentations"}
             };
             lessons.ForEach(s => context.Lessons.AddOrUpdate(p => p.LessonID, s));
-            context.SaveChanges(); */
+            context.SaveChanges();
 
             var groups = new List<Group>
             {

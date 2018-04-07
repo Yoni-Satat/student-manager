@@ -56,21 +56,45 @@
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Date of Birth</th>
             <th>Matriculation No.</th>
+            <th>Gender</th>
+            <th>Adjustments</th>
+            <th>Nationality</th>
+            <th>Year of Stusy</th>
+            <th>Image</th>
         </tr>
         @foreach(var item in Model.Students)
         {
-            <tr>
-                <td>
-                    @item.FirstName
-                </td>
-                <td>
-                    @item.LastName
-                </td>
-                <td>
-                    @item.MatricNumber
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.DateOfBirth
+            </td>
+            <td>
+                @item.MatricNumber
+            </td>
+            <td>
+                @item.Gender
+            </td>
+            <td>
+                @item.Adjustments
+            </td>
+            <td>
+                @item.Origin
+            </td>
+            <td>
+                @item.YearOfStudy
+            </td>
+            <td>
+                @item.ImageURL
+            </td>
+        </tr>
         }
     </table>
 }

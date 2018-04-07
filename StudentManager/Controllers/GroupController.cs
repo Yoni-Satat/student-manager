@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using StudentManager.DAL;
 using StudentManager.Models;
 using StudentManager.ViewModels;
+using PagedList;
 
 namespace StudentManager.Controllers
 {
@@ -17,7 +18,7 @@ namespace StudentManager.Controllers
         private SMContext db = new SMContext();
 
         // GET: Group
-        public ActionResult Index(int? id, int? studentID)
+        public ActionResult Index(int? id, int? studentID, int? page)
         {
             var viewModel = new GroupIndexData();
             viewModel.Groups = db.Groups
@@ -30,7 +31,7 @@ namespace StudentManager.Controllers
                 viewModel.Students = viewModel.Groups.Where(
                     g => g.GroupID == id.Value).Single().Students;
             }
-
+                        
             return View(viewModel);
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using StudentManager.Models;
 using System.Linq;
 using System.Web;
+using PagedList;
 
 namespace StudentManager.ViewModels
 {
