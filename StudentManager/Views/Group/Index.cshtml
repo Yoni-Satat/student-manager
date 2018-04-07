@@ -1,10 +1,10 @@
-﻿@model IEnumerable<StudentManager.Models.Group>
+﻿@model StudentManager.ViewModels.GroupIndexData
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Groups";
 }
 
-<h2>Index</h2>
+<h2>Groups</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,28 +12,65 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Course.Title)
+            Course Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GroupTitle)
+            Course ID
+        </th>
+        <th>
+            Group Title
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model.Groups) {
+    string selectedRow = "";
+    if (item.GroupID == ViewBag.GroupID)
+    {
+        selectedRow = "success";
+    }
+    <tr class="@selectedRow">
         <td>
             @Html.DisplayFor(modelItem => item.Course.Title)
         </td>
+        <th>
+            @Html.DisplayFor(modelItem => item.Course.CourseID)
+        </th>
         <td>
             @Html.DisplayFor(modelItem => item.GroupTitle)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GroupID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GroupID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GroupID })
+            @Html.ActionLink("Select", "Index", new { id = item.GroupID }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.GroupID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.GroupID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.GroupID })
         </td>
     </tr>
-}
-
+    }
 </table>
+
+@if (Model.Students != null)
+{
+    <h3>Students in selected group</h3>
+    <table class="table">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Matriculation No.</th>
+        </tr>
+        @foreach(var item in Model.Students)
+        {
+            <tr>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.LastName
+                </td>
+                <td>
+                    @item.MatricNumber
+                </td>
+            </tr>
+        }
+    </table>
+}
