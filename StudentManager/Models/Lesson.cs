@@ -15,13 +15,15 @@ namespace StudentManager.Models
 
         public string Topic { get; set; }
 
-        [Display(Name = "Schedule to start")]
+        [Display(Name = "Schedule to start"), DataType(DataType.Time)]
         public DateTime? LessonStart { get; set; }
 
-        [Display(Name = "Schedule to end")]
+        [Display(Name = "Schedule to end"), DataType(DataType.Time)]
         public DateTime? LessonEnd { get; set; }
 
-        [Display(Name = "Mark Mandatory")]
+        [Display(Name = "Mark Mandatory"), DataType(DataType.Date)]
+        public DateTime? Date { get; set; }
+
         public bool IsMandatory { get; set; }
 
         public virtual Course Course { get; set; }

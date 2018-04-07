@@ -28,6 +28,5 @@ namespace StudentManager.DAL
                    .MapRightKey("StudentID")
                    .ToTable("StudentGroup"));
         }
-
     }
 }

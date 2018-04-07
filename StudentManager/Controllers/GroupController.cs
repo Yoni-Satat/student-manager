@@ -18,7 +18,7 @@ namespace StudentManager.Controllers
         private SMContext db = new SMContext();
 
         // GET: Group
-        public ActionResult Index(int? id, int? studentID, int? page)
+        public ActionResult Index(int? id, int? studentID)
         {
             var viewModel = new GroupIndexData();
             viewModel.Groups = db.Groups

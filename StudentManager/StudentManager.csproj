@@ -159,6 +159,7 @@
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LessonController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="DAL\SMContext.cs" />
     <Compile Include="DAL\SMInitializer.cs" />
@@ -172,6 +173,10 @@
     <Compile Include="Migrations\201804072019134_AddLessonAndLocationModels.cs" />
     <Compile Include="Migrations\201804072019134_AddLessonAndLocationModels.Designer.cs">
       <DependentUpon>201804072019134_AddLessonAndLocationModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804072036013_AddLessonCollectionPropertToCourse.cs" />
+    <Compile Include="Migrations\201804072036013_AddLessonCollectionPropertToCourse.Designer.cs">
+      <DependentUpon>201804072036013_AddLessonCollectionPropertToCourse.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
@@ -222,11 +227,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Course\Create.cshtml" />
-    <Content Include="Views\Course\Delete.cshtml" />
-    <Content Include="Views\Course\Details.cshtml" />
-    <Content Include="Views\Course\Edit.cshtml" />
-    <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\Group\Delete.cshtml" />
     <Content Include="Views\Group\Details.cshtml" />
@@ -237,6 +237,16 @@
     <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Lesson\Create.cshtml" />
+    <Content Include="Views\Lesson\Delete.cshtml" />
+    <Content Include="Views\Lesson\Details.cshtml" />
+    <Content Include="Views\Lesson\Edit.cshtml" />
+    <Content Include="Views\Lesson\Index.cshtml" />
+    <Content Include="Views\Course\Create.cshtml" />
+    <Content Include="Views\Course\Delete.cshtml" />
+    <Content Include="Views\Course\Details.cshtml" />
+    <Content Include="Views\Course\Edit.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -263,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804072019134_AddLessonAndLocationModels.resx">
       <DependentUpon>201804072019134_AddLessonAndLocationModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804072036013_AddLessonCollectionPropertToCourse.resx">
+      <DependentUpon>201804072036013_AddLessonCollectionPropertToCourse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

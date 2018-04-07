@@ -8,112 +8,119 @@ using System.Web;
 using System.Web.Mvc;
 using StudentManager.DAL;
 using StudentManager.Models;
-using StudentManager.ViewModels;
 
 namespace StudentManager.Controllers
 {
-    public class CourseController : Controller
+    public class LessonController : Controller
     {
         private SMContext db = new SMContext();
 
-        // GET: Course
+        // GET: Lesson
         public ActionResult Index()
         {
-            var courses = db.Courses;
-            return View(courses.ToList());
+            var lessons = db.Lessons.Include(l => l.Course).Include(l => l.Location);
+            return View(lessons.ToList());
         }
 
-        // GET: Course/Details/5
+        // GET: Lesson/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            Lesson lesson = db.Lessons.Find(id);
+            if (lesson == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(lesson);
         }
 
-        // GET: Course/Create
+        // GET: Lesson/Create
         public ActionResult Create()
         {
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title");
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building");
             return View();
         }
 
-        // POST: Course/Create
+        // POST: Lesson/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseID,Title,Level")] Course course)
+        public ActionResult Create([Bind(Include = "LessonID,CourseID,LocationID,Topic,LessonStart,LessonEnd,IsMandatory")] Lesson lesson)
         {
             if (ModelState.IsValid)
             {
-                db.Courses.Add(course);
+                db.Lessons.Add(lesson);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(course);
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", lesson.CourseID);
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building", lesson.LocationID);
+            return View(lesson);
         }
 
-        // GET: Course/Edit/5
+        // GET: Lesson/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            Lesson lesson = db.Lessons.Find(id);
+            if (lesson == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", lesson.CourseID);
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building", lesson.LocationID);
+            return View(lesson);
         }
 
-        // POST: Course/Edit/5
+        // POST: Lesson/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseID,Title,Level")] Course course)
+        public ActionResult Edit([Bind(Include = "LessonID,CourseID,LocationID,Topic,LessonStart,LessonEnd,IsMandatory")] Lesson lesson)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
+                db.Entry(lesson).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(course);
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", lesson.CourseID);
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building", lesson.LocationID);
+            return View(lesson);
         }
 
-        // GET: Course/Delete/5
+        // GET: Lesson/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            Lesson lesson = db.Lessons.Find(id);
+            if (lesson == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(lesson);
         }
 
-        // POST: Course/Delete/5
+        // POST: Lesson/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Courses.Find(id);
-            db.Courses.Remove(course);
+            Lesson lesson = db.Lessons.Find(id);
+            db.Lessons.Remove(lesson);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

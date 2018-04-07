@@ -33,7 +33,6 @@ namespace StudentManager.Models
         [Display(Name = "Image URL")]
         public string ImageURL { get; set; }
 
-        public bool IsPresent { get; set; }
 
         public virtual ICollection<Group> Groups { get; set; }
     }
