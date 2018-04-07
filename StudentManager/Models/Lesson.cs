@@ -12,6 +12,7 @@ namespace StudentManager.Models
         public int LessonID { get; set; }
         public int CourseID { get; set; }
         public int? LocationID { get; set; }
+        public int? AttendancyID { get; set; }
 
         public string Topic { get; set; }
 
@@ -25,6 +26,7 @@ namespace StudentManager.Models
         public bool IsMandatory { get; set; }  
         
         public virtual Course Course { get; set; }
-        public virtual Location Location { get; set; }        
+        public virtual Location Location { get; set; }     
+        public virtual Attendancy Attendancy { get; set; }
     }
 }

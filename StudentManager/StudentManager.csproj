@@ -46,6 +46,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -59,6 +60,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -148,12 +150,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AttendancyController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
-    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LessonController.cs" />
-    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="DAL\SMContext.cs" />
     <Compile Include="DAL\SMInitializer.cs" />
@@ -164,13 +162,9 @@
     <Compile Include="Migrations\201804031308558_InitialCreate.Designer.cs">
       <DependentUpon>201804031308558_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804061325551_UpdateAllTables.cs" />
-    <Compile Include="Migrations\201804061325551_UpdateAllTables.Designer.cs">
-      <DependentUpon>201804061325551_UpdateAllTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804061334512_AddDateToAttendancyTable.cs" />
-    <Compile Include="Migrations\201804061334512_AddDateToAttendancyTable.Designer.cs">
-      <DependentUpon>201804061334512_AddDateToAttendancyTable.cs</DependentUpon>
+    <Compile Include="Migrations\201804070026489_UpdateProjectModels.cs" />
+    <Compile Include="Migrations\201804070026489_UpdateProjectModels.Designer.cs">
+      <DependentUpon>201804070026489_UpdateProjectModels.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
@@ -180,7 +174,7 @@
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Attendancy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AttendancyIndexData.cs" />
+    <Compile Include="ViewModels\AttendanceIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -221,36 +215,16 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Course\Create.cshtml" />
-    <Content Include="Views\Course\Delete.cshtml" />
-    <Content Include="Views\Course\Details.cshtml" />
-    <Content Include="Views\Course\Edit.cshtml" />
-    <Content Include="Views\Course\Index.cshtml" />
-    <Content Include="Views\Group\Create.cshtml" />
-    <Content Include="Views\Group\Delete.cshtml" />
-    <Content Include="Views\Group\Details.cshtml" />
-    <Content Include="Views\Group\Edit.cshtml" />
-    <Content Include="Views\Group\Index.cshtml" />
-    <Content Include="Views\Location\Create.cshtml" />
-    <Content Include="Views\Location\Delete.cshtml" />
-    <Content Include="Views\Location\Details.cshtml" />
-    <Content Include="Views\Location\Edit.cshtml" />
-    <Content Include="Views\Location\Index.cshtml" />
     <Content Include="Views\Student\Create.cshtml" />
     <Content Include="Views\Student\Delete.cshtml" />
     <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
-    <Content Include="Views\Lesson\Create.cshtml" />
-    <Content Include="Views\Lesson\Delete.cshtml" />
-    <Content Include="Views\Lesson\Details.cshtml" />
-    <Content Include="Views\Lesson\Edit.cshtml" />
-    <Content Include="Views\Lesson\Index.cshtml" />
-    <Content Include="Views\Attendancy\Create.cshtml" />
-    <Content Include="Views\Attendancy\Delete.cshtml" />
-    <Content Include="Views\Attendancy\Details.cshtml" />
-    <Content Include="Views\Attendancy\Edit.cshtml" />
-    <Content Include="Views\Attendancy\Index.cshtml" />
+    <Content Include="Views\Course\Create.cshtml" />
+    <Content Include="Views\Course\Delete.cshtml" />
+    <Content Include="Views\Course\Details.cshtml" />
+    <Content Include="Views\Course\Edit.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -272,12 +246,12 @@
     <EmbeddedResource Include="Migrations\201804031308558_InitialCreate.resx">
       <DependentUpon>201804031308558_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804061325551_UpdateAllTables.resx">
-      <DependentUpon>201804061325551_UpdateAllTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804070026489_UpdateProjectModels.resx">
+      <DependentUpon>201804070026489_UpdateProjectModels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804061334512_AddDateToAttendancyTable.resx">
-      <DependentUpon>201804061334512_AddDateToAttendancyTable.cs</DependentUpon>
-    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

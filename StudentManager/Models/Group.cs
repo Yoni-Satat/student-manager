@@ -16,6 +16,7 @@ namespace StudentManager.Models
         public string GroupTitle { get; set; }
 
         public virtual Course Course { get; set; }
+        public virtual ICollection<Lesson> Lessons { get; set; }
         public virtual ICollection<Attendancy> Attendances { get; set; }
         public virtual ICollection<Student> Students { get; set; }        
     }

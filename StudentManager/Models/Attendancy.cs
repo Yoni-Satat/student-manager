@@ -10,7 +10,7 @@ namespace StudentManager.Models
     public class Attendancy
     {
         public int AttendancyID { get; set; }
-        public int LocationID { get; set; }
+        public int? LocationID { get; set; }
 
         [Display(Name = "Tutor name")]
         public string TutorName { get; set; }
@@ -18,7 +18,7 @@ namespace StudentManager.Models
         [Display(Name = "Lesson start time"), DataType(DataType.Time)]
         public DateTime? LessonStart { get; set; }
 
-        [Display(Name = "Lesson End time"), DataType(DataType.Time)]
+        [Display(Name = "Lesson end time"), DataType(DataType.Time)]
         public DateTime? LessonEnd { get; set; }
 
         [Display(Name = "Date"), DataType(DataType.Date)]

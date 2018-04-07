@@ -30,36 +30,28 @@ namespace StudentManager.Migrations
             {
             new Student{FirstName="Carson",LastName="Alexander",DateOfBirth=DateTime.Parse("2005-09-01"),
                         MatricNumber ="SN0001", Gender="Male",
-                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="",
-                        Groups=new List<Group>()},
+                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="",},
             new Student{FirstName="Meredith",LastName="Alonso",DateOfBirth=DateTime.Parse("2002-04-11"),
                         MatricNumber ="SN0002", Gender="Female",
-                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="",
-                        Groups=new List<Group>()},
+                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL=""},
             new Student{FirstName="Arturo",LastName="Anand",DateOfBirth=DateTime.Parse("2003-09-01"),
                         MatricNumber ="SN0003", Gender="Male",
-                        Adjustments=true, Origin="EU", YearOfStudy=2018, ImageURL="",
-                        Groups=new List<Group>()},
+                        Adjustments=true, Origin="EU", YearOfStudy=2018, ImageURL=""},
             new Student{FirstName="Gytis",LastName="Barzdukas",DateOfBirth=DateTime.Parse("2002-09-01"),
                         MatricNumber ="SN0004", Gender="Male",
-                        Adjustments=false, Origin="USA", YearOfStudy=2018, ImageURL="",
-                        Groups=new List<Group>()},
+                        Adjustments=false, Origin="USA", YearOfStudy=2018, ImageURL=""},
             new Student{FirstName="Yan",LastName="Li",DateOfBirth=DateTime.Parse("2002-09-01"),
                         MatricNumber ="SN0005", Gender="Male",
-                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="",
-                        Groups=new List<Group>()},
+                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL=""},
             new Student{FirstName="Peggy",LastName="Justice",DateOfBirth=DateTime.Parse("2001-09-01"),
                         MatricNumber ="SN0006", Gender="Female",
-                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL="",
-                        Groups=new List<Group>()},
+                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL=""},
             new Student{FirstName="Laura",LastName="Norman",DateOfBirth=DateTime.Parse("2003-09-01"),
                         MatricNumber ="SN0007", Gender="Female",
-                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL="",
-                        Groups=new List<Group>()},
+                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL=""},
             new Student{FirstName="Nino",LastName="Olivetto",DateOfBirth=DateTime.Parse("2005-09-01"),
                         MatricNumber ="SN0008", Gender="Male",
-                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL="",
-                        Groups=new List<Group>()}
+                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL=""}
             };
 
             students.ForEach(s => context.Students.AddOrUpdate(p => p.StudentID, s));
@@ -105,7 +97,7 @@ namespace StudentManager.Migrations
                                LocationID=1 , Groups = new List<Group>()}
             };
 
-            attendancy.ForEach(s => context.Attendances.AddOrUpdate(p => p.AttendancyID, s));
+            attendancy.ForEach(s => context.Attendancies.AddOrUpdate(p => p.AttendancyID, s));
             context.SaveChanges();
 
             AddOrUpdateStudent(context, 1, 1);
@@ -134,7 +126,7 @@ namespace StudentManager.Migrations
 
         void AddOrUpdateGroup(SMContext context, int attendancyID, int groupID)
         {
-            var att = context.Attendances.SingleOrDefault(a => a.AttendancyID == attendancyID);
+            var att = context.Attendancies.SingleOrDefault(a => a.AttendancyID == attendancyID);
             var grp = att.Groups.SingleOrDefault(g => g.GroupID == groupID);
 
             if (grp == null)

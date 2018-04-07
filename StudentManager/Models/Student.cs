@@ -35,6 +35,6 @@ namespace StudentManager.Models
 
         public bool IsPresent { get; set; }
 
-        public virtual ICollection<Group> Groups { get; set; }
+        public virtual Group Group { get; set; }
     }
 }
