@@ -178,6 +178,10 @@
     <Compile Include="Migrations\201804072036013_AddLessonCollectionPropertToCourse.Designer.cs">
       <DependentUpon>201804072036013_AddLessonCollectionPropertToCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804081222588_TurnOffLazyLoading.cs" />
+    <Compile Include="Migrations\201804081222588_TurnOffLazyLoading.Designer.cs">
+      <DependentUpon>201804081222588_TurnOffLazyLoading.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Group.cs" />
@@ -185,6 +189,7 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CourseIndexData.cs" />
     <Compile Include="ViewModels\GroupIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -276,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804072036013_AddLessonCollectionPropertToCourse.resx">
       <DependentUpon>201804072036013_AddLessonCollectionPropertToCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804081222588_TurnOffLazyLoading.resx">
+      <DependentUpon>201804081222588_TurnOffLazyLoading.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

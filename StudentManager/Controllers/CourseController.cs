@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using StudentManager.DAL;
 using StudentManager.Models;
@@ -17,10 +14,19 @@ namespace StudentManager.Controllers
         private SMContext db = new SMContext();
 
         // GET: Course
-        public ActionResult Index()
+        public ActionResult Index(int? id, int? lessonID)
         {
-            var courses = db.Courses;
-            return View(courses.ToList());
+            var viewModel = new CourseIndexData
+            {
+                Courses = db.Courses.Include(c => c.Lessons)
+            };
+            if (id != null)
+            {
+                ViewBag.CourseID = id.Value;
+                viewModel.Lessons = viewModel.Courses.Where(
+                    c => c.CourseID == id.Value).Single().Lessons;
+            }
+            return View(viewModel);
         }
 
         // GET: Course/Details/5

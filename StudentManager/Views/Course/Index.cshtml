@@ -1,10 +1,10 @@
-﻿@model IEnumerable<StudentManager.Models.Course>
+﻿@model StudentManager.ViewModels.CourseIndexData
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Courses";
 }
 
-<h2>Index</h2>
+<h2>Courses</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,16 +12,21 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Course Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Level)
+            Course Level
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model.Courses) {
+    string selectedRow = "";
+    if (item.CourseID == ViewBag.CourseID)
+    {
+        selectedRow = "success";
+    }
+    <tr class="@selectedRow">
         <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
@@ -29,6 +34,7 @@
             @Html.DisplayFor(modelItem => item.Level)
         </td>
         <td>
+            @Html.ActionLink("Select", "Index", new { id=item.CourseID }) |
             @Html.ActionLink("Edit", "Edit", new { id=item.CourseID }) |
             @Html.ActionLink("Details", "Details", new { id=item.CourseID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.CourseID })
@@ -37,3 +43,29 @@
 }
 
 </table>
+
+@if (Model.Lessons != null)
+{
+    <h3>List of Lessons for selected Course</h3>
+    <table class="table">
+        <tr>
+            <th>Location</th>
+            <th>Lesson Topic</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Date</th>
+            <th>Mandatory (True/False)</th>
+        </tr>
+        @foreach(var item in Model.Lessons)
+        {
+        <tr>
+            <td>@item.Location</td>
+            <td>@item.Topic</td>
+            <td>@item.LessonStart</td>
+            <td>@item.LessonEnd</td>
+            <td>@item.Date</td>
+            <td>@item.IsMandatory</td>
+        </tr>
+        }
+    </table>
+}
