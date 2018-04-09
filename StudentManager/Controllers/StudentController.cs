@@ -17,17 +17,22 @@ namespace StudentManager.Controllers
         
 
         // GET: Student
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string searchString)
         {
                         
-            ViewBag.NameSortParm1 = String.IsNullOrEmpty(sortOrder) ? "name" : "";
-            ViewBag.NameSortParm1 = sortOrder == "firstname" ? "firstname_desc" : "firstname";
+            ViewBag.NameSortParmFirstName = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewBag.NameSortParmFirstName = sortOrder == "firstname" ? "firstname_desc" : "firstname";
 
-            ViewBag.NameSortParm2 = String.IsNullOrEmpty(sortOrder) ? "name" : "";
-            ViewBag.NameSortParm2 = sortOrder == "lastname" ? "lastname_desc" : "lastname";
+            ViewBag.NameSortParmLastName = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewBag.NameSortParmLastName = sortOrder == "lastname_desc" ? "lastname" : "lastname_desc";
 
             var students = from s in db.Students
                            select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.LastName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "firstname_desc":
@@ -43,7 +48,7 @@ namespace StudentManager.Controllers
                     students = students.OrderBy(s => s.LastName);
                     break;
                 default:
-                    students = students.OrderBy(s => s.FirstName);
+                    students = students.OrderBy(s => s.LastName);
                     break;
             }
             return View(students.ToList());
