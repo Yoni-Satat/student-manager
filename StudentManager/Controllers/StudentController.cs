@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using StudentManager.DAL;
 using StudentManager.Models;
+using PagedList;
 
 namespace StudentManager.Controllers
 {
@@ -17,14 +18,25 @@ namespace StudentManager.Controllers
         
 
         // GET: Student
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-                        
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParmFirstName = String.IsNullOrEmpty(sortOrder) ? "name" : "";
             ViewBag.NameSortParmFirstName = sortOrder == "firstname" ? "firstname_desc" : "firstname";
 
             ViewBag.NameSortParmLastName = String.IsNullOrEmpty(sortOrder) ? "name" : "";
             ViewBag.NameSortParmLastName = sortOrder == "lastname_desc" ? "lastname" : "lastname_desc";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             var students = from s in db.Students
                            select s;
@@ -51,7 +63,9 @@ namespace StudentManager.Controllers
                     students = students.OrderBy(s => s.LastName);
                     break;
             }
-            return View(students.ToList());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
 
 
         }

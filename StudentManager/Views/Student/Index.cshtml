@@ -1,4 +1,6 @@
-﻿@model IEnumerable<StudentManager.Models.Student>
+﻿@model PagedList.IPagedList<StudentManager.Models.Student>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Students";
@@ -10,44 +12,45 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Student", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString")
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParmLastName })
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParmLastName, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.NameSortParmFirstName })
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.NameSortParmFirstName, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+            Date of Birth
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MatricNumber)
+            Matriculation No.
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Gender)
+            Gender
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Adjustments)
+            Adjustments
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Origin)
+            Origin
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.YearOfStudy)
+            Year of Study
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ImageURL)
+            Image
         </th>
         <th></th>
     </tr>
+
 
     @foreach (var item in Model)
     {
@@ -88,3 +91,8 @@
     }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
