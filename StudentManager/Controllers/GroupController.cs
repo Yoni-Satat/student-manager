@@ -42,7 +42,7 @@ namespace StudentManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
+            var group = db.Groups.Find(id).Students.ToList();
             if (group == null)
             {
                 return HttpNotFound();
@@ -82,7 +82,7 @@ namespace StudentManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
+            Group group = db.Groups.Find(id);            
             if (group == null)
             {
                 return HttpNotFound();

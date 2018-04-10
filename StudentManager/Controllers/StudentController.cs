@@ -8,14 +8,25 @@ using System.Web;
 using System.Web.Mvc;
 using StudentManager.DAL;
 using StudentManager.Models;
+using StudentManager.Repos;
 using PagedList;
 
 namespace StudentManager.Controllers
 {
     public class StudentController : Controller
     {
-        private SMContext db = new SMContext();
-        
+        // private SMContext db = new SMContext();
+        private IStudentRepository studentRepository;
+
+        public StudentController()
+        {
+            studentRepository = new StudentRepository(new SMContext());
+        }
+        public StudentController(IStudentRepository studentRepository)
+        {
+            this.studentRepository = studentRepository;
+        }
+
 
         // GET: Student
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -38,7 +49,7 @@ namespace StudentManager.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var students = from s in db.Students
+            var students = from s in studentRepository.GetStudents()
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -71,17 +82,9 @@ namespace StudentManager.Controllers
         }
 
         // GET: Student/Details/5
-        public ActionResult Details(int? id)
+        public ViewResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
+            Student student = studentRepository.GetStudentByID(id);
             return View(student);
         }
 
@@ -100,8 +103,8 @@ namespace StudentManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
-                db.SaveChanges();
+                studentRepository.InsertStudent(student);
+                studentRepository.Save();
                 return RedirectToAction("Index");
             }
 
@@ -115,7 +118,7 @@ namespace StudentManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
+            Student student = studentRepository.GetStudentByID(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -132,8 +135,8 @@ namespace StudentManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
-                db.SaveChanges();
+                studentRepository.UpdateStudent(student);
+                studentRepository.Save();
                 return RedirectToAction("Index");
             }
             return View(student);
@@ -146,7 +149,7 @@ namespace StudentManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
+            Student student = studentRepository.GetStudentByID(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -159,18 +162,15 @@ namespace StudentManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
-            db.SaveChanges();
+            Student student = studentRepository.GetStudentByID(id);
+            studentRepository.DeleteStudent(id);
+            studentRepository.Save();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            studentRepository.Dispose();
             base.Dispose(disposing);
         }
     }
