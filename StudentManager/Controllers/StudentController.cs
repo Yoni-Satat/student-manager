@@ -112,17 +112,9 @@ namespace StudentManager.Controllers
         }
 
         // GET: Student/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Student student = studentRepository.GetStudentByID(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
             return View(student);
         }
 
@@ -143,17 +135,9 @@ namespace StudentManager.Controllers
         }
 
         // GET: Student/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Student student = studentRepository.GetStudentByID(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
             return View(student);
         }
 
