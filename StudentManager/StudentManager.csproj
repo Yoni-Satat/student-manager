@@ -189,9 +189,10 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\GenericRepository.cs" />
     <Compile Include="Repos\IStudentRepository.cs" />
     <Compile Include="Repos\StudentRepository.cs" />
-    <Compile Include="ViewModels\CourseIndexData.cs" />
+    <Compile Include="Repos\UnitOfWork.cs" />
     <Compile Include="ViewModels\GroupIndexData.cs" />
   </ItemGroup>
   <ItemGroup>

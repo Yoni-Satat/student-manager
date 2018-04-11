@@ -1,4 +1,4 @@
-﻿@model StudentManager.ViewModels.CourseIndexData
+﻿@model IEnumerable<StudentManager.Models.Course>
 
 @{
     ViewBag.Title = "Courses";
@@ -20,7 +20,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.Courses) {
+@foreach (var item in Model) {
     string selectedRow = "";
     if (item.CourseID == ViewBag.CourseID)
     {
@@ -44,28 +44,22 @@
 
 </table>
 
-@if (Model.Lessons != null)
-{
-    <h3>List of Lessons for selected Course</h3>
-    <table class="table">
-        <tr>
-            <th>Location</th>
-            <th>Lesson Topic</th>
-            <th>Start time</th>
-            <th>End time</th>
-            <th>Date</th>
-            <th>Mandatory (True/False)</th>
-        </tr>
-        @foreach(var item in Model.Lessons)
+<table class="table">
+    <tr>
+        <th>Lesson Topic</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        foreach (var lesson in item.Lessons)
         {
-        <tr>
-            <td>@item.Location</td>
-            <td>@item.Topic</td>
-            <td>@item.LessonStart</td>
-            <td>@item.LessonEnd</td>
-            <td>@item.Date</td>
-            <td>@item.IsMandatory</td>
-        </tr>
+    <tr>
+        <th>@Html.DisplayFor(modelItem => lesson.Topic)</th>
+        <th>@Html.DisplayFor(modelItem => lesson.LessonStart)</th>
+        <th>@Html.DisplayFor(modelItem => lesson.LessonEnd)</th>
+    </tr>
         }
-    </table>
-}
+    }
+</table>
+

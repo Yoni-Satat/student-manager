@@ -1,46 +1,26 @@
 ﻿using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
-using StudentManager.DAL;
 using StudentManager.Models;
-using StudentManager.ViewModels;
+using StudentManager.Repos;
 
 namespace StudentManager.Controllers
 {
     public class CourseController : Controller
     {
-        private SMContext db = new SMContext();
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Course
-        public ActionResult Index(int? id, int? lessonID)
+        public ViewResult Index()
         {
-            var viewModel = new CourseIndexData
-            {
-                Courses = db.Courses.Include(c => c.Lessons)
-            };
-            if (id != null)
-            {
-                ViewBag.CourseID = id.Value;
-                viewModel.Lessons = viewModel.Courses.Where(
-                    c => c.CourseID == id.Value).Single().Lessons;
-            }
-            return View(viewModel);
+            var courses = unitOfWork.CourseRepository.Get(includeProperties: "Lessons");
+            return View(courses.ToList());
         }
 
         // GET: Course/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Course course = db.Courses.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
+            Course course = unitOfWork.CourseRepository.GetByID(id);
             return View(course);
         }
 
@@ -59,8 +39,8 @@ namespace StudentManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Courses.Add(course);
-                db.SaveChanges();
+                unitOfWork.CourseRepository.Insert(course);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -68,17 +48,9 @@ namespace StudentManager.Controllers
         }
 
         // GET: Course/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Course course = db.Courses.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
+            Course course = unitOfWork.CourseRepository.GetByID(id);            
             return View(course);
         }
 
@@ -87,29 +59,36 @@ namespace StudentManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseID,Title,Level")] Course course)
+        public ActionResult Edit([Bind(Include = "CourseID,Title,Level,LessonID")] Course course)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(course).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    unitOfWork.CourseRepository.Update(course);
+                    unitOfWork.Save();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name after DataException and add a line here to write a log.)
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
             }
             return View(course);
         }
 
-        // GET: Course/Delete/5
-        public ActionResult Delete(int? id)
+        private void PopulateLessonsTable(object selectedLesson = null)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Course course = db.Courses.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
+            var lessonsQuery = unitOfWork.LessonRepository.Get(
+                orderBy: q => q.OrderBy(l => l.Topic));
+            ViewBag.LessonID = new SelectList(lessonsQuery, "LessonID", "Name", selectedLesson);
+        }
+
+        // GET: Course/Delete/5
+        public ActionResult Delete(int id)
+        {
+            Course course = unitOfWork.CourseRepository.GetByID(id);
             return View(course);
         }
 
@@ -118,9 +97,9 @@ namespace StudentManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Courses.Find(id);
-            db.Courses.Remove(course);
-            db.SaveChanges();
+            Course course = unitOfWork.CourseRepository.GetByID(id);
+            unitOfWork.CourseRepository.Delete(id);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -128,7 +107,7 @@ namespace StudentManager.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

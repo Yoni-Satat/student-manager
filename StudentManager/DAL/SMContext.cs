@@ -28,6 +28,11 @@ namespace StudentManager.DAL
                    .MapRightKey("StudentID")
                    .ToTable("StudentGroup"));
 
+            modelBuilder.Entity<Course>()
+                .HasMany(c => c.Lessons)
+                .WithRequired(navigationPropertyExpression: l => l.Course)
+                .HasForeignKey(l => l.CourseID);
+
         }
     }
 }

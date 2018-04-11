@@ -138,7 +138,7 @@ namespace StudentManager.Controllers
         public ActionResult Delete(int id)
         {
             Student student = studentRepository.GetStudentByID(id);
-            return View(student);
+             return View(student);
         }
 
         // POST: Student/Delete/5
