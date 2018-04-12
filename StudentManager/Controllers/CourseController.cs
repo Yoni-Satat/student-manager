@@ -1,7 +1,10 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using StudentManager.Models;
+using StudentManager.ViewModels;
 using StudentManager.Repos;
 
 namespace StudentManager.Controllers
@@ -11,10 +14,18 @@ namespace StudentManager.Controllers
         private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Course
-        public ViewResult Index()
+        public ActionResult Index(int? id)
         {
-            var courses = unitOfWork.CourseRepository.Get(includeProperties: "Lessons");
-            return View(courses.ToList());
+            var viewModel = new CourseIndexData();
+            viewModel.Courses = unitOfWork.CourseRepository.Get(includeProperties: "Lessons");
+
+            if (id != null)
+            {
+                ViewBag.CourseID = id.Value;
+                viewModel.Lessons = viewModel.Courses.Where(
+                    c => c.CourseID == id.Value).Single().Lessons;
+            }
+            return View(viewModel);
         }
 
         // GET: Course/Details/5
@@ -50,7 +61,7 @@ namespace StudentManager.Controllers
         // GET: Course/Edit/5
         public ActionResult Edit(int id)
         {
-            Course course = unitOfWork.CourseRepository.GetByID(id);            
+            Course course = unitOfWork.CourseRepository.GetByID(id);
             return View(course);
         }
 
@@ -75,14 +86,22 @@ namespace StudentManager.Controllers
                 //Log the error (uncomment dex variable name after DataException and add a line here to write a log.)
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
             }
+            PopulateLessonsTable(course.Lessons);
             return View(course);
         }
-
+        
         private void PopulateLessonsTable(object selectedLesson = null)
         {
             var lessonsQuery = unitOfWork.LessonRepository.Get(
                 orderBy: q => q.OrderBy(l => l.Topic));
             ViewBag.LessonID = new SelectList(lessonsQuery, "LessonID", "Name", selectedLesson);
+        }
+
+        private void PopulateCoursesTable(object selectedCourse = null)
+        {
+            var courseQuery = unitOfWork.CourseRepository.Get(
+                orderBy: q => q.OrderBy(c => c.Title));
+            ViewBag.CourseID = new SelectList(courseQuery, "CourseID", "Lessons", selectedCourse);
         }
 
         // GET: Course/Delete/5

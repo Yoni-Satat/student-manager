@@ -193,6 +193,7 @@
     <Compile Include="Repos\IStudentRepository.cs" />
     <Compile Include="Repos\StudentRepository.cs" />
     <Compile Include="Repos\UnitOfWork.cs" />
+    <Compile Include="ViewModels\CourseIndexData.cs" />
     <Compile Include="ViewModels\GroupIndexData.cs" />
   </ItemGroup>
   <ItemGroup>

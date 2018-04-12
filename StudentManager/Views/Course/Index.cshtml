@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StudentManager.Models.Course>
+﻿@model StudentManager.ViewModels.CourseIndexData
 
 @{
     ViewBag.Title = "Courses";
@@ -20,46 +20,56 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    string selectedRow = "";
-    if (item.CourseID == ViewBag.CourseID)
+    @foreach (var item in Model.Courses)
     {
-        selectedRow = "success";
+        string selectedRow = "";
+        if (item.CourseID == ViewBag.CourseID)
+        {
+            selectedRow = "success";
+        }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level)
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Index", new { id = item.CourseID }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
+            </td>
+        </tr>
     }
-    <tr class="@selectedRow">
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Level)
-        </td>
-        <td>
-            @Html.ActionLink("Select", "Index", new { id=item.CourseID }) |
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseID })
-        </td>
-    </tr>
+
+</table>
+
+@if(Model.Lessons != null)
+{
+    <h3>Lessons in selected Course</h3>
+    <table class="table">
+        <tr>
+            <th>Lesson Topic</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Mandatory</th>
+        </tr>
+        @foreach(var item in Model.Lessons)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Topic)</td>
+            <td>@Html.DisplayFor(modelItem => item.LessonStart)</td>
+            <td>@Html.DisplayFor(modelItem => item.LessonEnd)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsMandatory)</td>
+        </tr>
+        }
+    </table>
 }
 
-</table>
 
-<table class="table">
-    <tr>
-        <th>Lesson Topic</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        foreach (var lesson in item.Lessons)
-        {
-    <tr>
-        <th>@Html.DisplayFor(modelItem => lesson.Topic)</th>
-        <th>@Html.DisplayFor(modelItem => lesson.LessonStart)</th>
-        <th>@Html.DisplayFor(modelItem => lesson.LessonEnd)</th>
-    </tr>
-        }
-    }
-</table>
+
+
+
+
 

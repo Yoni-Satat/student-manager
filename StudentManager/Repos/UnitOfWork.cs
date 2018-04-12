@@ -10,7 +10,7 @@ namespace StudentManager.Repos
         private GenericRepository<Student> studentRepository;
         private GenericRepository<Course> courseRepository;
         private GenericRepository<Group> groupRepository;
-        private GenericRepository<Lesson> lessonResitory;
+        private GenericRepository<Lesson> lessonRepository;
 
         public GenericRepository<Student> StudentRepository
         {
@@ -56,11 +56,11 @@ namespace StudentManager.Repos
             get
             {
 
-                if (this.lessonResitory == null)
+                if (this.lessonRepository == null)
                 {
-                    this.lessonResitory = new GenericRepository<Lesson>(context);
+                    this.lessonRepository = new GenericRepository<Lesson>(context);
                 }
-                return lessonResitory;
+                return lessonRepository;
             }
         }
 
