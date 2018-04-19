@@ -19,5 +19,6 @@ namespace StudentManager.Models
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
         // In View: Html.EditorFor(m => m.Notes)
+
     }
 }

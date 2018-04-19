@@ -182,9 +182,19 @@
     <Compile Include="Migrations\201804081222588_TurnOffLazyLoading.Designer.cs">
       <DependentUpon>201804081222588_TurnOffLazyLoading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804122104360_AddAttendancyTable.cs" />
+    <Compile Include="Migrations\201804122104360_AddAttendancyTable.Designer.cs">
+      <DependentUpon>201804122104360_AddAttendancyTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804191758335_NewGroupAttendancyTable.cs" />
+    <Compile Include="Migrations\201804191758335_NewGroupAttendancyTable.Designer.cs">
+      <DependentUpon>201804191758335_NewGroupAttendancyTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Attendancy.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\GroupAttendancy.cs" />
     <Compile Include="Models\Lesson.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Student.cs" />
@@ -288,6 +298,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804081222588_TurnOffLazyLoading.resx">
       <DependentUpon>201804081222588_TurnOffLazyLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804122104360_AddAttendancyTable.resx">
+      <DependentUpon>201804122104360_AddAttendancyTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804191758335_NewGroupAttendancyTable.resx">
+      <DependentUpon>201804191758335_NewGroupAttendancyTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

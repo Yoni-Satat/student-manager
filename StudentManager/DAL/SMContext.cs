@@ -17,6 +17,9 @@ namespace StudentManager.DAL
         public DbSet<Group> Groups { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<Attendancy> Attendancy { get; set; }
+        public DbSet<GroupAttendancy> GroupAttendancies { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

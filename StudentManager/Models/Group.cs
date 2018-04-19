@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StudentManager.Models
 {
     public class Group
-    {
+    {        
         public int GroupID { get; set; }
         public int CourseID { get; set; }
 
@@ -17,5 +17,7 @@ namespace StudentManager.Models
 
         public virtual Course Course { get; set; }        
         public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Attendancy> Attendancies { get; set; }
+
     }
 }

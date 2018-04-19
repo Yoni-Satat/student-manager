@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using StudentManager.DAL;
 
 namespace StudentManager.Models
 {
     public class Student
     {
+        
         public int StudentID { get; set; }
 
         [Required, Display(Name = "First Name")]
@@ -32,6 +34,15 @@ namespace StudentManager.Models
 
         [Display(Name = "Image URL")]
         public string ImageURL { get; set; }
+
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
 
 
         public virtual ICollection<Group> Groups { get; set; }
